@@ -5,59 +5,173 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dark Horn Profile</title>
   <style>
-    body { background-color: #121212; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header { background-color: #1f1f1f; padding: 20px; text-align: center; border-bottom: 1px solid #333; }
-    nav { display: flex; justify-content: center; background-color: #1f1f1f; padding: 10px; }
-    nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    .container { padding: 20px; }
-    .gallery img { width: 200px; height: auto; margin: 10px; border: 2px solid #333; }
-    footer { background-color: #1f1f1f; padding: 10px; text-align: center; border-top: 1px solid #333; }
+    /* Global Styles */
+    body {
+      background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    /* Header dengan animasi slide-down */
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      animation: slideDown 1s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    /* Navigasi hanya memuat link ke profile */
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ff9800;
+    }
+    /* Hero Section dengan background image dan animasi fade-in */
+    .hero {
+      background: url('https://via.placeholder.com/1500x500') center center/cover no-repeat;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .hero h2 {
+      font-size: 3em;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    /* Kontainer utama */
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    /* Gallery dengan animasi pop-in */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      animation: popIn 1s ease-out;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border: 3px solid #444;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    /* Member List Section */
+    .member-list {
+      margin-top: 40px;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .member-list h2 {
+      margin-bottom: 20px;
+    }
+    .member-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    .member-list li {
+      margin: 10px 0;
+      font-size: 1.2em;
+    }
+    /* Footer dengan animasi slide-up */
+    footer {
+      background: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+      animation: slideUp 1s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* Tombol */
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff9800;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #e68900;
+    }
   </style>
 </head>
 <body>
   <header>
-    <!-- Logo yang nantinya bisa diupdate melalui panel admin -->
-    <h1 id="logo">Dark Horn</h1>
+    <h1>Dark Horn</h1>
   </header>
   <nav>
+    <!-- Hanya terdapat link Profile saja -->
     <a href="index.html">Profile</a>
-    <a href="panel.html">Panel</a>
   </nav>
+  <div class="hero">
+    <h2>Welcome to Dark Horn</h2>
+  </div>
   <div class="container">
-    <!-- Gallery Section -->
+    <!-- Section Gallery -->
     <section class="gallery">
-      <h2>Gallery</h2>
-      <div id="gallery-container">
-        <!-- Contoh foto; nantinya diupdate melalui panel -->
-        <img src="https://via.placeholder.com/200x150.png?text=Foto+1" alt="Foto 1" />
-        <img src="https://via.placeholder.com/200x150.png?text=Foto+2" alt="Foto 2" />
-      </div>
+      <img src="https://via.placeholder.com/300x200.png?text=Foto+1" alt="Foto 1" />
+      <img src="https://via.placeholder.com/300x200.png?text=Foto+2" alt="Foto 2" />
+      <img src="https://via.placeholder.com/300x200.png?text=Foto+3" alt="Foto 3" />
+      <img src="https://via.placeholder.com/300x200.png?text=Foto+4" alt="Foto 4" />
     </section>
-
-    <!-- Comments Section -->
-    <section class="comments">
-      <h2>Komentar</h2>
-      <div id="comments-container">
-        <!-- Komentar yang diambil dari GitHub API (simulasi) akan muncul di sini -->
-        <p>(Komentar akan ditampilkan dari file comments.txt di repo Darkhorn)</p>
-      </div>
-      <form id="comment-form">
-        <input type="text" id="comment-input" placeholder="Tulis komentar anda" required />
-        <button type="submit">Kirim Komentar</button>
-      </form>
-    </section>
-
-    <!-- Member List Section (akses dengan password "dark5555") -->
+    <!-- Section List Member -->
     <section class="member-list">
       <h2>List Member</h2>
-      <button onclick="showMemberList()">Tampilkan List Member (Password Required)</button>
-      <div id="member-container" style="display:none; margin-top: 10px;">
+      <p>Masukkan password untuk melihat list member.</p>
+      <button onclick="showMemberList()">Tampilkan List Member</button>
+      <div id="member-container" style="display:none; margin-top:20px;">
         <ul>
-          <!-- Data member diambil dari file member_list.txt di repo Darkhorn -->
           <li>Member A</li>
           <li>Member B</li>
           <li>Member C</li>
+          <li>Member D</li>
         </ul>
       </div>
     </section>
@@ -65,9 +179,7 @@
   <footer>
     <p>&copy; 2025 Dark Horn. All rights reserved.</p>
   </footer>
-
   <script>
-    // Contoh fungsi untuk menampilkan list member dengan verifikasi password
     function showMemberList() {
       const password = prompt("Masukkan password untuk melihat list member:");
       if (password === 'dark5555') {
@@ -76,16 +188,6 @@
         alert("Password salah!");
       }
     }
-
-    // Simulasi pengiriman komentar; implementasi nyata akan melibatkan GitHub API untuk update file comments.txt
-    document.getElementById('comment-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const commentText = document.getElementById('comment-input').value;
-      alert('Komentar "' + commentText + '" dikirim (simulasi).');
-      document.getElementById('comment-input').value = '';
-      // Setelah berhasil, Anda dapat memuat ulang komentar dari GitHub
-    });
   </script>
 </body>
-  </html>
-        
+</html>
