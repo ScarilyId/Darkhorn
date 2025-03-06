@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dark Horn Profile</title>
   <style>
-    /* Reset dasar */
+    /* Reset dan Global Style */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -71,6 +71,7 @@
       padding: 20px;
       border-radius: 10px;
     }
+    /* Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -90,6 +91,7 @@
     .gallery img:hover {
       transform: scale(1.05);
     }
+    /* Member List */
     .member-list {
       margin-top: 40px;
       animation: fadeIn 1s ease;
@@ -136,34 +138,81 @@
     <h1>Dark Horn</h1>
   </header>
   <nav>
-    <!-- Menu simpel: hanya link ke profile -->
+    <!-- Hanya menu Profile, karena akses Panel dilakukan secara privat -->
     <a href="index.html">Profile</a>
   </nav>
   <div class="hero">
     <h2>Welcome to Dark Horn</h2>
   </div>
   <div class="container">
-    <!-- Gallery Section -->
-    <section class="gallery">
-      <img src="https://via.placeholder.com/600x400.png?text=Foto+1" alt="Foto 1">
-      <img src="https://via.placeholder.com/600x400.png?text=Foto+2" alt="Foto 2">
-      <img src="https://via.placeholder.com/600x400.png?text=Foto+3" alt="Foto 3">
-      <img src="https://via.placeholder.com/600x400.png?text=Foto+4" alt="Foto 4">
+    <!-- Gallery Section: Gambar diambil dari folder "images" di repo Darkhorn -->
+    <section class="gallery" id="galleryContainer">
+      <!-- Gambar akan dimuat di sini -->
+      <p style="text-align:center;">Memuat gambar...</p>
     </section>
-    <!-- Member List Section (publik) -->
-    <section class="member-list">
+    <!-- Member List Section: Data diambil dari file member_list.txt -->
+    <section class="member-list" id="memberContainer">
       <h2>List Member</h2>
-      <ul>
-        <li>Member A</li>
-        <li>Member B</li>
-        <li>Member C</li>
-        <li>Member D</li>
-        <li>Member E</li>
+      <ul id="memberList">
+        <li>Memuat member list...</li>
       </ul>
     </section>
   </div>
   <footer>
     <p>&copy; 2025 Dark Horn. All rights reserved.</p>
   </footer>
+  <script>
+    // Fungsi untuk mengambil gambar dari folder "images" di repo Darkhorn
+    async function fetchImages() {
+      const galleryContainer = document.getElementById("galleryContainer");
+      try {
+        const response = await fetch("https://api.github.com/repos/ScarilyId/Darkhorn/contents/images");
+        if (!response.ok) {
+          galleryContainer.innerHTML = "<p>Gagal memuat gambar.</p>";
+          return;
+        }
+        const files = await response.json();
+        let htmlContent = "";
+        files.forEach(file => {
+          // Pastikan file yang didapat adalah gambar
+          if (file.type === "file" && (file.name.endsWith(".jpg") || file.name.endsWith(".jpeg") || file.name.endsWith(".png") || file.name.endsWith(".gif"))) {
+            htmlContent += `<img src="${file.download_url}" alt="${file.name}">`;
+          }
+        });
+        galleryContainer.innerHTML = htmlContent || "<p>Tidak ada gambar ditemukan.</p>";
+      } catch (error) {
+        console.error(error);
+        galleryContainer.innerHTML = "<p>Error memuat gambar.</p>";
+      }
+    }
+
+    // Fungsi untuk mengambil data member dari file member_list.txt di repo Darkhorn
+    async function fetchMembers() {
+      const memberList = document.getElementById("memberList");
+      try {
+        const response = await fetch("https://api.github.com/repos/ScarilyId/Darkhorn/contents/member_list.txt");
+        if (!response.ok) {
+          memberList.innerHTML = "<li>Gagal memuat member list.</li>";
+          return;
+        }
+        const data = await response.json();
+        const content = atob(data.content);
+        // Asumsikan daftar member dipisahkan oleh baris baru
+        const members = content.split("\n").filter(line => line.trim() !== "");
+        let listHtml = "";
+        members.forEach(member => {
+          listHtml += `<li>${member}</li>`;
+        });
+        memberList.innerHTML = listHtml || "<li>Tidak ada member ditemukan.</li>";
+      } catch (error) {
+        console.error(error);
+        memberList.innerHTML = "<li>Error memuat member list.</li>";
+      }
+    }
+
+    // Panggil fungsi saat halaman dimuat
+    fetchImages();
+    fetchMembers();
+  </script>
 </body>
 </html>
