@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Horn Profile</title>
+  <style>
+    body { background-color: #121212; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background-color: #1f1f1f; padding: 20px; text-align: center; border-bottom: 1px solid #333; }
+    nav { display: flex; justify-content: center; background-color: #1f1f1f; padding: 10px; }
+    nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .container { padding: 20px; }
+    .gallery img { width: 200px; height: auto; margin: 10px; border: 2px solid #333; }
+    footer { background-color: #1f1f1f; padding: 10px; text-align: center; border-top: 1px solid #333; }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Logo yang nantinya bisa diupdate melalui panel admin -->
+    <h1 id="logo">Dark Horn</h1>
+  </header>
+  <nav>
+    <a href="index.html">Profile</a>
+    <a href="panel.html">Panel</a>
+  </nav>
+  <div class="container">
+    <!-- Gallery Section -->
+    <section class="gallery">
+      <h2>Gallery</h2>
+      <div id="gallery-container">
+        <!-- Contoh foto; nantinya diupdate melalui panel -->
+        <img src="https://via.placeholder.com/200x150.png?text=Foto+1" alt="Foto 1" />
+        <img src="https://via.placeholder.com/200x150.png?text=Foto+2" alt="Foto 2" />
+      </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="comments">
+      <h2>Komentar</h2>
+      <div id="comments-container">
+        <!-- Komentar yang diambil dari GitHub API (simulasi) akan muncul di sini -->
+        <p>(Komentar akan ditampilkan dari file comments.txt di repo Darkhorn)</p>
+      </div>
+      <form id="comment-form">
+        <input type="text" id="comment-input" placeholder="Tulis komentar anda" required />
+        <button type="submit">Kirim Komentar</button>
+      </form>
+    </section>
+
+    <!-- Member List Section (akses dengan password "dark5555") -->
+    <section class="member-list">
+      <h2>List Member</h2>
+      <button onclick="showMemberList()">Tampilkan List Member (Password Required)</button>
+      <div id="member-container" style="display:none; margin-top: 10px;">
+        <ul>
+          <!-- Data member diambil dari file member_list.txt di repo Darkhorn -->
+          <li>Member A</li>
+          <li>Member B</li>
+          <li>Member C</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <footer>
+    <p>&copy; 2025 Dark Horn. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Contoh fungsi untuk menampilkan list member dengan verifikasi password
+    function showMemberList() {
+      const password = prompt("Masukkan password untuk melihat list member:");
+      if (password === 'dark5555') {
+        document.getElementById('member-container').style.display = 'block';
+      } else {
+        alert("Password salah!");
+      }
+    }
+
+    // Simulasi pengiriman komentar; implementasi nyata akan melibatkan GitHub API untuk update file comments.txt
+    document.getElementById('comment-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const commentText = document.getElementById('comment-input').value;
+      alert('Komentar "' + commentText + '" dikirim (simulasi).');
+      document.getElementById('comment-input').value = '';
+      // Setelah berhasil, Anda dapat memuat ulang komentar dari GitHub
+    });
+  </script>
+</body>
+  </html>
+        
