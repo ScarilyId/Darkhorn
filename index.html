@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dark Horn Profile</title>
+  <!-- Sertakan Three.js dan minecraft-skin-viewer (dari unpkg) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/minecraft-skin-viewer@4.0.1/dist/minecraft-skin-viewer.min.js"></script>
   <style>
-    /* Background dari file background/background.png */
+    /* Gunakan background dari file background/background.png */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/background/background.png') no-repeat center center fixed;
@@ -19,7 +22,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0,0,0,0.8);
       padding: 10px 20px;
       animation: fadeInDown 1s ease;
     }
@@ -59,7 +62,7 @@
       transition: background 0.3s;
     }
     nav a:hover { background: #ff9800; color: #000; }
-    /* Hero Section menggunakan banner/banner.png */
+    /* Hero Section dengan banner/banner.png, disesuaikan untuk mobile */
     .hero {
       position: relative;
       background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/banner/banner.png') center/cover no-repeat;
@@ -82,18 +85,7 @@
       margin: 20px auto;
       padding: 0 20px;
     }
-    /* Spinner sederhana */
-    .spinner {
-      border: 4px solid rgba(255,255,255,0.3);
-      border-top: 4px solid #fff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: auto;
-    }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    /* Galeri yang dipisah foto dan video */
+    /* Section Galeri: pisahkan foto dan video dengan spinner */
     .gallery-section { margin-top: 40px; }
     .gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .gallery-header h2 { margin: 0; }
@@ -113,13 +105,11 @@
       transition: transform 0.3s;
     }
     .gallery-item:hover { transform: scale(1.02); }
-    .gallery-item img,
-    .gallery-item video,
-    .gallery-item iframe {
+    .gallery-item img, .gallery-item video, .gallery-item iframe {
       width: 100%;
       display: block;
     }
-    /* About Us Section dengan spasi lebih ringkas */
+    /* About Us Section */
     .about {
       margin-top: 40px;
       background: rgba(0,0,0,0.7);
@@ -151,6 +141,33 @@
       font-size: 0.9rem;
     }
     .member-list li:hover { background: #ff9800; color: #000; }
+    /* Modal untuk Skin Viewer */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.5s ease;
+    }
+    .modal-content {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px; right: 10px;
+      cursor: pointer;
+      color: #ff9800;
+      font-size: 1.5rem;
+    }
     /* Recruitment Section */
     .recruitment {
       margin-top: 40px;
@@ -193,7 +210,7 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Responsive untuk mobile */
+    /* Responsive */
     @media (max-width: 600px) {
       header h1 { font-size: 1.5rem; }
       .hero { height: 200px; }
@@ -220,7 +237,7 @@
     <h2>Welcome to Dark Horn</h2>
   </div>
   <div class="container">
-    <!-- Gallery Sections: Pisahkan foto dan video -->
+    <!-- Gallery: Pisahkan Photo Gallery & Video Gallery -->
     <div class="gallery-section">
       <div class="gallery-header">
         <h2>Photo Gallery</h2>
@@ -244,7 +261,7 @@
         Dark Horn adalah komunitas kreatif yang menggabungkan dunia game, seni, dan teknologi. Kami menyediakan galeri media, 3D skin viewer untuk Minecraft, dan informasi rekrutmen yang selalu diperbarui.
       </p>
       <p>
-        Setiap elemen dapat diperbarui secara real-time melalui panel administrasi. Nikmati tampilan modern, interaktif, dan fitur-fitur canggih.
+        Nikmati pengalaman interaktif dan tampilan modern yang dapat diperbarui secara real-time melalui panel administrasi.
       </p>
     </section>
     <!-- Member List Section -->
@@ -265,7 +282,7 @@
     </section>
   </div>
   <!-- Modal untuk 3D Skin Viewer -->
-  <div class="modal" id="skinModal" style="display:none;">
+  <div class="modal" id="skinModal">
     <div class="modal-content">
       <span class="modal-close" id="modalClose">&times;</span>
       <div id="skinViewer" style="width:100%; height:100%; min-width:300px; min-height:300px;">
@@ -297,7 +314,6 @@
           : "<p>Tidak ada foto.</p>";
         
         const videoGallery = document.getElementById("videoGallery");
-        // Ambil juga link video dari video_links.txt
         let videoLinks = [];
         try {
           const videoRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/video_links.txt`);
@@ -307,29 +323,27 @@
             videoLinks = content.split("\n").filter(line => line.trim() !== "");
           }
         } catch(e) { console.error(e); }
-        videoGallery.innerHTML = "";
+        let videoHTML = "";
         if(videos.length > 0) {
-          videoGallery.innerHTML += videos.map(f => `<div class="gallery-item"><video controls><source src="${f.download_url}" type="video/mp4">Browser tidak mendukung video.</video></div>`).join("");
+          videoHTML += videos.map(f => `<div class="gallery-item"><video controls><source src="${f.download_url}" type="video/mp4">Browser tidak mendukung video.</video></div>`).join("");
         }
         if(videoLinks.length > 0) {
           videoLinks.forEach(link => {
             if(link.includes("tiktok.com")) {
-              videoGallery.innerHTML += `<div class="gallery-item"><iframe src="${link}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
+              videoHTML += `<div class="gallery-item"><iframe src="${link}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
             } else {
-              videoGallery.innerHTML += `<div class="gallery-item"><a href="${link}" target="_blank" style="display:block; padding:20px; background:#222; text-align:center; color:#ff9800;">${link}</a></div>`;
+              videoHTML += `<div class="gallery-item"><a href="${link}" target="_blank" style="display:block; padding:20px; background:#222; text-align:center; color:#ff9800;">${link}</a></div>`;
             }
           });
         }
-        if(photoGallery.innerHTML === "" && videoGallery.innerHTML === "") {
-          document.getElementById("galleryContainer").innerHTML = "<p>Tidak ada konten gallery ditemukan.</p>";
-        }
+        videoGallery.innerHTML = videoHTML || "<p>Tidak ada video.</p>";
       } catch (error) {
         console.error(error);
         document.getElementById("galleryContainer").innerHTML = "<p>Error memuat gallery.</p>";
       }
     }
     
-    // Fungsi fetch member list
+    // Fungsi ambil member list
     async function fetchMembers() {
       try {
         const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/member_list.txt`);
@@ -347,7 +361,7 @@
       }
     }
     
-    // Fungsi fetch logo
+    // Fungsi ambil logo
     async function fetchLogo() {
       try {
         const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/logo/logo.png`);
@@ -358,7 +372,7 @@
       } catch (error) { console.error(error); }
     }
     
-    // Fungsi fetch recruitment
+    // Fungsi ambil recruitment link
     async function fetchRecruitment() {
       const btn = document.getElementById("recruitmentBtn");
       try {
@@ -368,13 +382,11 @@
           const link = atob(data.content).trim();
           btn.onclick = () => window.open(link, "_blank");
           btn.textContent = "Lihat Recruitment";
-        } else {
-          btn.style.display = "none";
-        }
+        } else { btn.style.display = "none"; }
       } catch (error) { console.error(error); }
     }
     
-    // Fungsi fetch mapping skin
+    // Fungsi ambil mapping skin
     async function fetchSkinsMapping() {
       try {
         const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/skins_list.txt`);
@@ -393,62 +405,30 @@
       } catch (error) { console.error("Gagal memuat skins mapping:", error); }
     }
     
-    // Fungsi membuka modal skin viewer
+    // Fungsi buka modal skin viewer
     function openSkinViewer(memberName) {
       const modal = document.getElementById("skinModal");
       const viewer = document.getElementById("skinViewer");
       const skinUrl = skinsMapping[memberName] || "https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/skins/Steve.png";
       modal.style.display = "flex";
       viewer.innerHTML = "";
-      show3DSkin(skinUrl, viewer);
+      showMinecraftSkin(skinUrl, viewer);
     }
     
-    // Fungsi render model Minecraft player sederhana menggunakan Three.js
-    function show3DSkin(skinUrl, container) {
-      const width = container.offsetWidth || 300;
-      const height = container.offsetHeight || 300;
-      while(container.firstChild) { container.removeChild(container.firstChild); }
-      
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      container.appendChild(renderer.domElement);
-      
-      const textureLoader = new THREE.TextureLoader();
-      textureLoader.load(skinUrl, (texture) => {
-        // Model sederhana: kepala, badan, dan dua kaki
-        const group = new THREE.Group();
-        // Kepala (asumsikan 8x8x8, di-scale)
-        const headGeo = new THREE.BoxGeometry(1,1,1);
-        const head = new THREE.Mesh(headGeo, new THREE.MeshBasicMaterial({ map: texture }));
-        head.position.y = 1.2;
-        group.add(head);
-        // Badan (misal 1x1.5x0.5)
-        const bodyGeo = new THREE.BoxGeometry(1,1.5,0.5);
-        const body = new THREE.Mesh(bodyGeo, new THREE.MeshBasicMaterial({ map: texture }));
-        body.position.y = 0;
-        group.add(body);
-        // Kaki
-        const legGeo = new THREE.BoxGeometry(0.3,1,0.3);
-        const leg1 = new THREE.Mesh(legGeo, new THREE.MeshBasicMaterial({ map: texture }));
-        leg1.position.set(-0.2, -1, 0);
-        group.add(leg1);
-        const leg2 = new THREE.Mesh(legGeo, new THREE.MeshBasicMaterial({ map: texture }));
-        leg2.position.set(0.2, -1, 0);
-        group.add(leg2);
-        
-        scene.add(group);
-        camera.position.z = 4;
-        function animate() {
-          requestAnimationFrame(animate);
-          group.rotation.y += 0.01;
-          renderer.render(scene, camera);
-        }
-        animate();
-      }, undefined, (error) => {
-        console.error("Texture load error:", error);
-      });
+    // Fungsi render model Minecraft menggunakan minecraft-skin-viewer
+    function showMinecraftSkin(skinUrl, container) {
+      // Hapus konten sebelumnya
+      container.innerHTML = "";
+      // Buat elemen viewer
+      const viewerElement = document.createElement("minecraft-skin-viewer");
+      // Set opsi yang mendekati tampilan model Minecraft 64x64 dengan layer
+      viewerElement.setAttribute("skin", skinUrl);
+      viewerElement.setAttribute("width", container.offsetWidth);
+      viewerElement.setAttribute("height", container.offsetHeight);
+      viewerElement.setAttribute("rotate", "true"); // auto rotate
+      viewerElement.setAttribute("rotation-speed", "0.5");
+      // Jika Anda ingin memungkinkan interaksi manual, Anda bisa mengatur attribute seperti "draggable" (tergantung implementasi library)
+      container.appendChild(viewerElement);
     }
     
     // Modal close handler
@@ -460,14 +440,14 @@
       if(event.target === modal) { modal.style.display = "none"; }
     };
     
-    // Panggil semua fungsi secara paralel untuk mempercepat load
+    // Panggil fungsi load data secara paralel
     Promise.all([
       loadGallery(),
       fetchMembers(),
       fetchLogo(),
       fetchRecruitment(),
       fetchSkinsMapping()
-    ]).catch(err => console.error("Error pada inisialisasi:", err));
+    ]).catch(err => console.error("Error in initialization:", err));
   </script>
 </body>
 </html>
