@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dark Horn Profile</title>
   <style>
-    /* Gunakan background yang diupload dari file background/background.png */
+    /* Global & background menggunakan file background/background.png */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/background/background.png') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
-      overflow-x: hidden;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.8);
       padding: 10px 20px;
       animation: fadeInDown 1s ease;
     }
@@ -31,12 +31,14 @@
       border: 2px solid #fff;
       transition: transform 0.3s;
     }
-    header img#logo:hover { transform: scale(1.1); }
+    header img#logo:hover {
+      transform: scale(1.1);
+    }
     header h1 {
       font-size: 1.8rem;
       padding: 10px 20px;
       border-radius: 8px;
-      background: rgba(0,0,255,0.3);
+      background: rgba(0, 0, 255, 0.3);
       backdrop-filter: blur(5px);
     }
     @keyframes fadeInDown {
@@ -44,7 +46,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
     nav {
-      background: rgba(17,17,17,0.9);
+      background: rgba(17, 17, 17, 0.9);
       padding: 10px 20px;
       display: flex;
       justify-content: center;
@@ -58,8 +60,11 @@
       border-radius: 4px;
       transition: background 0.3s;
     }
-    nav a:hover { background: #ff9800; color: #000; }
-    /* Hero Section menggunakan banner/banner.png */
+    nav a:hover {
+      background: #ff9800;
+      color: #000;
+    }
+    /* Hero Section dengan banner/banner.png */
     .hero {
       position: relative;
       background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/banner/banner.png') center/cover no-repeat;
@@ -72,19 +77,23 @@
     .hero h2 {
       font-size: 2.5rem;
       padding: 20px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
     }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     .container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
     }
+    /* Gallery Section */
     .gallery {
       margin-top: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       animation: popIn 1s ease;
     }
@@ -97,25 +106,41 @@
       overflow: hidden;
       transition: transform 0.3s;
     }
-    .gallery-item:hover { transform: scale(1.02); }
-    .gallery-item img, .gallery-item video, .gallery-item iframe {
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+    .gallery-item img,
+    .gallery-item video,
+    .gallery-item iframe {
       width: 100%;
       display: block;
     }
+    /* About Us Section */
     .about {
       margin-top: 40px;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       padding: 20px;
       border-radius: 8px;
       animation: fadeIn 1s ease;
     }
-    .about h2 { text-align: center; margin-bottom: 15px; }
-    .about p { text-align: justify; line-height: 1.5; }
+    .about h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .about p {
+      text-align: justify;
+      line-height: 1.5;
+    }
+    /* Member List Section */
     .member-list {
       margin-top: 40px;
       animation: fadeIn 1s ease;
     }
-    .member-list h2 { text-align: center; margin-bottom: 20px; font-size: 1.8rem; }
+    .member-list h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
     .member-list ul {
       list-style: none;
       display: flex;
@@ -130,7 +155,11 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .member-list li:hover { background: #ff9800; color: #000; }
+    .member-list li:hover {
+      background: #ff9800;
+      color: #000;
+    }
+    /* Recruitment Section */
     .recruitment {
       margin-top: 40px;
       text-align: center;
@@ -145,7 +174,10 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .recruitment button:hover { background: #e68900; }
+    .recruitment button:hover {
+      background: #e68900;
+    }
+    /* Footer */
     footer {
       background: #000;
       text-align: center;
@@ -157,40 +189,62 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      nav {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Header: Logo dan Nama Situs -->
   <header>
     <img id="logo" src="https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/logo/logo.png" alt="Logo Dark Horn">
     <h1 id="siteName">Dark Horn</h1>
   </header>
+  <!-- Navigasi -->
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="#recruitmentSection">Recruitment</a>
   </nav>
+  <!-- Hero Section -->
   <div class="hero">
     <h2>Welcome to Dark Horn</h2>
   </div>
   <div class="container">
+    <!-- Gallery Section: Mengambil gambar/video dari folder images dan link video dari video_links.txt -->
     <section class="gallery" id="galleryContainer">
       <p style="text-align:center;">Memuat gallery...</p>
     </section>
+    <!-- About Us Section -->
     <section class="about" id="aboutSection">
       <h2>About Us</h2>
       <p>
-        Dark Horn adalah komunitas kreatif yang menggabungkan dunia game, seni, dan teknologi. Kami menyediakan galeri media, 3D skin viewer untuk Minecraft, dan fitur rekrutmen yang dinamis. Bergabunglah dengan kami untuk berkreasi dan mengeksplorasi inovasi tanpa batas!
+        Dark Horn adalah komunitas kreatif yang menggabungkan dunia game, seni, dan teknologi.
+        Kami menyediakan galeri media, 3D skin viewer untuk Minecraft, serta informasi rekrutmen
+        yang selalu diperbarui. Bergabunglah dan eksplorasi kreativitas tanpa batas bersama kami.
       </p>
       <p>
-        Kami berkomitmen untuk memberikan pengalaman interaktif melalui tampilan visual modern dan fitur-fitur canggih. Setiap elemen di Dark Horn dapat diperbarui secara langsung melalui panel administrasi.
+        Melalui platform ini, Anda dapat menikmati berbagai karya dan media yang diunggah oleh komunitas,
+        serta mendapatkan pengalaman interaktif yang modern. Selalu update dengan fitur terbaru kami melalui panel administrasi.
       </p>
     </section>
+    <!-- Member List Section -->
     <section class="member-list" id="memberContainer">
       <h2>List Member</h2>
       <ul id="memberList">
         <li>Memuat member list...</li>
       </ul>
     </section>
+    <!-- Recruitment Section -->
     <section class="recruitment" id="recruitmentSection">
       <button id="recruitmentBtn">Lihat Recruitment</button>
     </section>
@@ -204,6 +258,7 @@
       </div>
     </div>
   </div>
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Dark Horn. All rights reserved.</p>
   </footer>
@@ -212,7 +267,7 @@
     const REPO = "Darkhorn";
     let skinsMapping = {};
 
-    // Fungsi untuk mengambil gallery (foto & video)
+    // Fungsi untuk mengambil gallery (gambar, video & link embed)
     async function fetchGallery() {
       const galleryContainer = document.getElementById("galleryContainer");
       try {
@@ -224,7 +279,7 @@
         const files = await response.json();
         let htmlContent = "";
         files.forEach(file => {
-          if(file.type === "file") {
+          if (file.type === "file") {
             if(file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
               htmlContent += `<div class="gallery-item"><img src="${file.download_url}" alt="${file.name}"></div>`;
             } else if(file.name.match(/\.(mp4|webm)$/i)) {
@@ -232,9 +287,9 @@
             }
           }
         });
-        // Ambil link video dari file video_links.txt
+        // Ambil juga link video dari file video_links.txt
         const videoResponse = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/video_links.txt`);
-        if(videoResponse.ok) {
+        if (videoResponse.ok) {
           const videoData = await videoResponse.json();
           const videoContent = atob(videoData.content);
           const videoLinks = videoContent.split("\n").filter(line => line.trim() !== "");
@@ -252,8 +307,8 @@
         galleryContainer.innerHTML = "<p>Error memuat gallery.</p>";
       }
     }
-    
-    // Fungsi untuk mengambil member list dari file member_list.txt
+
+    // Fungsi untuk mengambil member list dari member_list.txt
     async function fetchMembers() {
       const memberList = document.getElementById("memberList");
       try {
@@ -275,8 +330,8 @@
         memberList.innerHTML = "<li>Error memuat member list.</li>";
       }
     }
-    
-    // Fungsi untuk mengambil logo dari folder logo (logo/logo.png)
+
+    // Fungsi untuk mengambil logo dari folder logo/logo.png
     async function fetchLogo() {
       try {
         const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/logo/logo.png`);
@@ -288,8 +343,8 @@
         console.error(error);
       }
     }
-    
-    // Fungsi untuk mengambil recruitment link dari file recruitment.txt
+
+    // Fungsi untuk mengambil recruitment link dari recruitment.txt
     async function fetchRecruitment() {
       const recruitmentBtn = document.getElementById("recruitmentBtn");
       try {
@@ -306,8 +361,8 @@
         console.error(error);
       }
     }
-    
-    // Fungsi untuk mengambil mapping skin dari file skins_list.txt
+
+    // Fungsi untuk mengambil mapping skin dari skins_list.txt
     async function fetchSkinsMapping() {
       try {
         const response = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/skins_list.txt`);
@@ -329,17 +384,18 @@
         console.error("Gagal memuat skins mapping:", error);
       }
     }
-    
+
     // Fungsi untuk membuka modal 3D skin viewer
     function openSkinViewer(memberName) {
       const modal = document.getElementById("skinModal");
       const viewerContainer = document.getElementById("skinViewer");
+      // Dapatkan URL skin dari mapping; jika tidak ada, gunakan default skin (misal, Steve)
       const skinUrl = skinsMapping[memberName] || "https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/skins/Steve.png";
       modal.style.display = "flex";
       viewerContainer.innerHTML = "";
       show3DSkin(skinUrl, viewerContainer);
     }
-    
+
     // Fungsi untuk merender 3D skin menggunakan Three.js (contoh sederhana: cube dengan tekstur skin)
     function show3DSkin(skinUrl, container) {
       while(container.firstChild) { container.removeChild(container.firstChild); }
@@ -364,16 +420,18 @@
         animate();
       });
     }
-    
-    // Modal close
+
+    // Modal close handler
     document.getElementById("modalClose").onclick = () => {
       document.getElementById("skinModal").style.display = "none";
-    }
+    };
     window.onclick = (event) => {
       const modal = document.getElementById("skinModal");
-      if(event.target === modal) { modal.style.display = "none"; }
-    }
-    
+      if(event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
     // Panggil fungsi saat halaman dimuat
     fetchGallery();
     fetchMembers();
