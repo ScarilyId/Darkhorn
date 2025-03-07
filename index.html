@@ -4,20 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dark Horn Profile</title>
-  <!-- Three.js CDN untuk 3D Skin Viewer -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
-    /* Gunakan background image "background.png" */
+    /* Gunakan background yang diupload dari file background/background.png */
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: url('background.png') no-repeat center center fixed;
+      background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/background/background.png') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       overflow-x: hidden;
       margin: 0;
       padding: 0;
     }
-    /* Header dengan logo dinamis dan nama situs */
     header {
       display: flex;
       align-items: center;
@@ -34,23 +31,20 @@
       border: 2px solid #fff;
       transition: transform 0.3s;
     }
-    header img#logo:hover {
-      transform: scale(1.1);
-    }
+    header img#logo:hover { transform: scale(1.1); }
     header h1 {
       font-size: 1.8rem;
       padding: 10px 20px;
       border-radius: 8px;
-      background: rgba(0, 0, 255, 0.3);
+      background: rgba(0,0,255,0.3);
       backdrop-filter: blur(5px);
     }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Navigasi */
     nav {
-      background: rgba(17, 17, 17, 0.9);
+      background: rgba(17,17,17,0.9);
       padding: 10px 20px;
       display: flex;
       justify-content: center;
@@ -65,48 +59,32 @@
       transition: background 0.3s;
     }
     nav a:hover { background: #ff9800; color: #000; }
-    /* Hero Section dengan overlay fullbody dan banner (dbenner.png) */
+    /* Hero Section menggunakan banner/banner.png */
     .hero {
       position: relative;
-      background: url('fullbody.png') center/cover no-repeat;
+      background: url('https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/banner/banner.png') center/cover no-repeat;
       height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: fadeIn 1.5s ease;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('dbenner.png') center/cover no-repeat;
-      opacity: 0.5;
-      filter: blur(5px);
-      z-index: 1;
-    }
     .hero h2 {
-      position: relative;
-      z-index: 2;
       font-size: 2.5rem;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       border-radius: 10px;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    /* Kontainer Utama */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
     }
-    /* Gallery Section */
     .gallery {
       margin-top: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
       gap: 20px;
       animation: popIn 1s ease;
     }
@@ -124,7 +102,6 @@
       width: 100%;
       display: block;
     }
-    /* About Us Section */
     .about {
       margin-top: 40px;
       background: rgba(0,0,0,0.7);
@@ -132,24 +109,13 @@
       border-radius: 8px;
       animation: fadeIn 1s ease;
     }
-    .about h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .about p {
-      text-align: justify;
-      line-height: 1.5;
-    }
-    /* Member List Section */
+    .about h2 { text-align: center; margin-bottom: 15px; }
+    .about p { text-align: justify; line-height: 1.5; }
     .member-list {
       margin-top: 40px;
       animation: fadeIn 1s ease;
     }
-    .member-list h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.8rem;
-    }
+    .member-list h2 { text-align: center; margin-bottom: 20px; font-size: 1.8rem; }
     .member-list ul {
       list-style: none;
       display: flex;
@@ -165,7 +131,6 @@
       transition: background 0.3s;
     }
     .member-list li:hover { background: #ff9800; color: #000; }
-    /* Recruitment Section di bagian bawah */
     .recruitment {
       margin-top: 40px;
       text-align: center;
@@ -181,34 +146,6 @@
       transition: background 0.3s;
     }
     .recruitment button:hover { background: #e68900; }
-    /* Modal untuk Skin Viewer */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.5s ease;
-    }
-    .modal-content {
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 90%;
-      max-height: 90%;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px; right: 10px;
-      cursor: pointer;
-      color: #ff9800;
-      font-size: 1.5rem;
-    }
-    /* Footer */
     footer {
       background: #000;
       text-align: center;
@@ -220,56 +157,40 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Responsive */
-    @media (max-width: 600px) {
-      header h1 { font-size: 1.5rem; }
-      .hero h2 { font-size: 1.8rem; }
-      nav { flex-direction: column; }
-    }
   </style>
 </head>
 <body>
-  <!-- Header: Logo dan Nama Situs (logo akan diupdate lewat panel) -->
   <header>
-    <img id="logo" src="https://via.placeholder.com/70" alt="Logo Dark Horn">
+    <img id="logo" src="https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/logo/logo.png" alt="Logo Dark Horn">
     <h1 id="siteName">Dark Horn</h1>
   </header>
-  <!-- Navigasi -->
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="#recruitmentSection">Recruitment</a>
   </nav>
-  <!-- Hero Section -->
   <div class="hero">
     <h2>Welcome to Dark Horn</h2>
   </div>
   <div class="container">
-    <!-- Gallery Section: Menampilkan foto & video -->
     <section class="gallery" id="galleryContainer">
       <p style="text-align:center;">Memuat gallery...</p>
     </section>
-    <!-- About Us Section -->
     <section class="about" id="aboutSection">
       <h2>About Us</h2>
       <p>
-        Dark Horn adalah komunitas kreatif yang menggabungkan dunia game, seni, dan teknologi.
-        Kami menyediakan berbagai fitur seperti galeri media, 3D Minecraft skin viewer, serta informasi rekrutmen.
-        Bergabunglah dengan kami untuk mengeksplorasi kreativitas dan inovasi tanpa batas!
+        Dark Horn adalah komunitas kreatif yang menggabungkan dunia game, seni, dan teknologi. Kami menyediakan galeri media, 3D skin viewer untuk Minecraft, dan fitur rekrutmen yang dinamis. Bergabunglah dengan kami untuk berkreasi dan mengeksplorasi inovasi tanpa batas!
       </p>
       <p>
-        Kami selalu mengutamakan kolaborasi dan pengembangan komunitas. Dengan dukungan teknologi terkini,
-        kami menghadirkan pengalaman visual yang dinamis dan interaktif. Mari berkreasi bersama Dark Horn.
+        Kami berkomitmen untuk memberikan pengalaman interaktif melalui tampilan visual modern dan fitur-fitur canggih. Setiap elemen di Dark Horn dapat diperbarui secara langsung melalui panel administrasi.
       </p>
     </section>
-    <!-- Member List Section -->
     <section class="member-list" id="memberContainer">
       <h2>List Member</h2>
       <ul id="memberList">
         <li>Memuat member list...</li>
       </ul>
     </section>
-    <!-- Recruitment Section -->
     <section class="recruitment" id="recruitmentSection">
       <button id="recruitmentBtn">Lihat Recruitment</button>
     </section>
@@ -279,19 +200,17 @@
     <div class="modal-content">
       <span class="modal-close" id="modalClose">&times;</span>
       <div id="skinViewer" style="width:500px; height:500px;">
-        <!-- 3D Skin Viewer akan dirender di sini -->
         <p style="text-align:center; color:#ff9800;">Loading 3D Skin...</p>
       </div>
     </div>
   </div>
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Dark Horn. All rights reserved.</p>
   </footer>
   <script>
     const OWNER = "ScarilyId";
     const REPO = "Darkhorn";
-    let skinsMapping = {}; // mapping nama player ke URL skin
+    let skinsMapping = {};
 
     // Fungsi untuk mengambil gallery (foto & video)
     async function fetchGallery() {
@@ -395,7 +314,6 @@
         if(response.ok) {
           const data = await response.json();
           const content = atob(data.content);
-          // Format file: setiap baris "nama:URL_skin"
           content.split("\n").forEach(line => {
             const parts = line.split(":");
             if(parts.length >= 2) {
@@ -416,27 +334,21 @@
     function openSkinViewer(memberName) {
       const modal = document.getElementById("skinModal");
       const viewerContainer = document.getElementById("skinViewer");
-      // Dapatkan URL skin berdasarkan mapping, jika tidak ada, gunakan default skin Steve
-      const skinUrl = skinsMapping[memberName] || "https://via.placeholder.com/64?text=Steve";
+      const skinUrl = skinsMapping[memberName] || "https://raw.githubusercontent.com/ScarilyId/Darkhorn/main/skins/Steve.png";
       modal.style.display = "flex";
-      // Hapus konten sebelumnya
       viewerContainer.innerHTML = "";
-      // Panggil fungsi untuk render 3D skin dengan Three.js
       show3DSkin(skinUrl, viewerContainer);
     }
     
-    // Fungsi untuk merender 3D skin menggunakan Three.js (contoh sederhana dengan cube)
+    // Fungsi untuk merender 3D skin menggunakan Three.js (contoh sederhana: cube dengan tekstur skin)
     function show3DSkin(skinUrl, container) {
-      // Hapus canvas jika ada
       while(container.firstChild) { container.removeChild(container.firstChild); }
-      
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       container.appendChild(renderer.domElement);
       
-      // Buat cube dengan tekstur skin
       const geometry = new THREE.BoxGeometry(2, 4, 1);
       const textureLoader = new THREE.TextureLoader();
       textureLoader.load(skinUrl, (texture) => {
@@ -444,8 +356,6 @@
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
         camera.position.z = 6;
-        
-        // Animasi rotasi
         function animate() {
           requestAnimationFrame(animate);
           cube.rotation.y += 0.01;
