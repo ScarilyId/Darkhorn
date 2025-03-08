@@ -1,9 +1,8 @@
 
-(Leader) ForcedCraft 
-(Atmin) MohFahmiMc 
-(Atmin) Razooors32 
-(Atmin) FarhanCrafting
- -------      -----
-        Member
+(Leader) ForcedCraft
+Member 
+MohFahmiMc 
+Razooors32 
+FarhanCrafting
 IkyySahaa
 Vexxnob
